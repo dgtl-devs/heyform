@@ -5,8 +5,8 @@ import * as cookieParser from 'cookie-parser'
 import * as rateLimit from 'express-rate-limit'
 import * as helmet from 'helmet'
 import * as serveStatic from 'serve-static'
-
-import { ms } from '@heyform-inc/utils'
+import * as express from 'express'; 
+import { helper, ms } from '@heyform-inc/utils'
 
 import { APP_LISTEN_HOSTNAME, APP_LISTEN_PORT, STATIC_DIR, VIEW_DIR } from '@environments'
 import { Logger, hbs } from '@utils'
@@ -36,16 +36,22 @@ async function bootstrap() {
   app.set('trust proxy', 1)
 
   // Static assets
+ // Add this line to import the 'express' module
+
   app.use(
     '/static',
     serveStatic(STATIC_DIR, {
       maxAge: '30d',
       extensions: ['jpg', 'jpeg', 'bmp', 'webp', 'gif', 'png', 'svg', 'js', 'css'],
-      setHeaders: (res, path) => {
-       console.log(res)
-      }
+      setHeaders: (res: express.Response, path) => {
+        const { attname } = res.locals.req.query;
+
+        if (helper.isValid(attname)) {
+          res.setHeader('Content-Disposition', `attachment; filename="${attname}"`);
+        }
+      },
     })
-  )
+  );
 
   // Template rendering
   app.engine('html', hbs.__express)
