@@ -33,7 +33,7 @@ export const WelcomeBranding: FC = () => {
       <div className="heyform-footer-wrapper">
         <div className="heyform-footer-left" />
         <div className="heyform-footer-right">
-          <Branding />
+    
         </div>
       </div>
     </div>

@@ -32,7 +32,7 @@ export const ThankYou: FC<BlockProps> = ({ field, className, children, ...restPr
         isScrollable={false}
         {...restProps}
       />
-      <Branding />
+
     </>
   )
 }
