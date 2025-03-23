@@ -1,8 +1,8 @@
 import { ApolloClient, ApolloQueryResult, InMemoryCache, from } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
+import { RetryLink } from '@apollo/client/link/retry'
 import { helper } from '@heyform-inc/utils'
-import { RetryLink } from 'apollo-link-retry'
 import ApolloLinkTimeout from 'apollo-link-timeout'
 import { createUploadLink } from 'apollo-upload-client'
 
